@@ -1,4 +1,4 @@
-const BASE_URL = "http://localhost:8001/auth";
+const BASE_URL = "https://nimbus-uthm.onrender.com/auth";
 
 export async function login(email, password, type) {
     const res = await fetch(`${BASE_URL}/${type}/login`, {
