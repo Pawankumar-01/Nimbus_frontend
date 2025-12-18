@@ -1,4 +1,4 @@
-const BASE = "http://localhost:8000/meetings";
+const BASE = "https://nimbus-uthm.onrender.com/meetings";
 
 export async function createMeeting(title, projectId, createdBy) {
     const res = await fetch(`${BASE}/create`, {
