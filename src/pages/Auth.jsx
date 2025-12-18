@@ -1,9 +1,11 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { login, registerUser, refreshToken } from "../api/auth";
 
 export default function Auth() {
     const [output, setOutput] = useState("Waiting for action...");
     const [loginType, setLoginType] = useState("user");
+    const navigate = useNavigate();
 
     const handleLogin = async () => {
         const email = document.getElementById("loginEmail").value;
@@ -11,13 +13,13 @@ export default function Auth() {
 
         const data = await login(email, password, loginType);
 
-        // Save tokens
         localStorage.setItem("access_token", data.access_token);
         localStorage.setItem("refresh_token", data.refresh_token);
         localStorage.setItem("role", data.role);
         localStorage.setItem("email", email);
 
-        window.location.href = "/dashboard";
+        // ✅ SPA-safe navigation
+        navigate("/dashboard");
     };
 
     const handleRegister = async () => {
@@ -57,12 +59,11 @@ export default function Auth() {
             <div className="container">
                 <h2>Register</h2>
                 <input id="regEmail" placeholder="Email" />
-                <input id="regPassword" type="password" placeholder="Password" />
+                <input id="regPassword" type="password" />
                 <select id="regRole">
                     <option value="user">User</option>
                     <option value="admin">Admin</option>
                 </select>
-
                 <button onClick={handleRegister}>Register</button>
             </div>
 
